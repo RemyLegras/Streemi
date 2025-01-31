@@ -25,9 +25,6 @@ class Playlist
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'playlists')]
-    private ?User $userPlaylist = null;
-
     /**
      * @var Collection<int, PlaylistSubscription>
      */
@@ -39,6 +36,9 @@ class Playlist
      */
     #[ORM\OneToMany(targetEntity: PlaylistMedia::class, mappedBy: 'playlist')]
     private Collection $playlistMedia;
+
+    #[ORM\ManyToOne(inversedBy: 'playlists')]
+    private ?User $subscriber = null;
 
     public function __construct()
     {
@@ -83,18 +83,6 @@ class Playlist
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getUserPlaylist(): ?User
-    {
-        return $this->userPlaylist;
-    }
-
-    public function setUserPlaylist(?User $userPlaylist): static
-    {
-        $this->userPlaylist = $userPlaylist;
 
         return $this;
     }
@@ -158,4 +146,17 @@ class Playlist
 
         return $this;
     }
+
+    public function getSubscriber(): ?User
+    {
+        return $this->subscriber;
+    }
+
+    public function setSubscriber(?User $subscriber): static
+    {
+        $this->subscriber = $subscriber;
+
+        return $this;
+    }
+
 }

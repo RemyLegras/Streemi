@@ -25,7 +25,7 @@ class SubscriptionHistory
     private ?Subscription $subscription = null;
 
     #[ORM\ManyToOne(inversedBy: 'subscriptionHistories')]
-    private ?User $userHistory = null;
+    private ?User $subscriber = null;
 
     public function getId(): ?int
     {
@@ -68,15 +68,16 @@ class SubscriptionHistory
         return $this;
     }
 
-    public function getUserHistory(): ?User
+    public function getSubscriber(): ?User
     {
-        return $this->userHistory;
+        return $this->subscriber;
     }
 
-    public function setUserHistory(?User $userHistory): static
+    public function setSubscriber(?User $subscriber): static
     {
-        $this->userHistory = $userHistory;
+        $this->subscriber = $subscriber;
 
         return $this;
     }
+
 }
